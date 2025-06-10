@@ -1,0 +1,2 @@
+<?php
+ namespace App\Http\Middleware; use Closure; use Illuminate\Http\Request; use Symfony\Component\HttpFoundation\Response; use Carbon\Carbon; class Lic { public function handle(Request $request, Closure $next) : Response { $licenseKey = config("\x6c\151\156\x2e\114\111\103\105\116\123\105\137\x4b\x45\x59"); $expiryDate = config("\x6c\151\156\x2e\x4c\111\103\x45\x4e\123\105\137\105\130\x50\x49\122\x59\137\104\101\x54\x45"); if (!$licenseKey || Carbon::parse($expiryDate)->isBefore(now())) { abort(403); } return $next($request); } }
